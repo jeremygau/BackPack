@@ -23,26 +23,25 @@ public class Solver {
 
     public void backtrack(ArrayList<MyObject> a, int k, ArrayList<MyObject> input) {
 //        System.out.println(a);
-        if (isSolution(a, k, input)) {
-            processSolution(a, k, input);
-        }
-        if (k >= input.size()) {
-            return;
+        if (isSolution(a)) {
+            processSolution(a);
         }
         ArrayList<MyObject> candidates = constructCandidates(a, k, input);
-        for (int i = 0; i < candidates.size(); i ++) {
-            a.add(k, candidates.get(i));
-            if (getTotalWeight(a) <= bagCapacity)
+        for (MyObject candidate : candidates) {
+            if (getTotalWeight(a) + candidate.getWeight() <= bagCapacity) {
+                a.add(k, candidate);
                 backtrack(a, k + 1, input);
-            a.remove(k);
+                a.remove(k);
+            }
         }
+
     }
 
-    private boolean isSolution(ArrayList<MyObject> a, int k, ArrayList<MyObject> input) {
+    private boolean isSolution(ArrayList<MyObject> a) {
         return getTotalWeight(a) <= bagCapacity;
     }
 
-    private void processSolution(ArrayList<MyObject> a, int k, ArrayList<MyObject> input) {
+    private void processSolution(ArrayList<MyObject> a) {
         if (getTotalValue(a) > getTotalValue(this.betterSolution)) {
             betterSolution.clear();
             betterSolution.addAll(a);
