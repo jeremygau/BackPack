@@ -3,6 +3,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 public class Solver {
 
@@ -17,11 +18,11 @@ public class Solver {
     }
 
     public ArrayList<MyObject> solve() {
-        backtrack(new ArrayList<MyObject>(), 0, objectArrayList);
+        backtrack(new ArrayList<>(), 0, objectArrayList);
         return betterSolution;
     }
 
-    public void backtrack(ArrayList<MyObject> a, int k, ArrayList<MyObject> input) {
+    public void backtrack(List<MyObject> a, int k, ArrayList<MyObject> input) {
 //        System.out.println(a);
         if (isSolution(a)) {
             processSolution(a);
@@ -36,18 +37,18 @@ public class Solver {
         }
     }
 
-    private boolean isSolution(ArrayList<MyObject> a) {
+    private boolean isSolution(List<MyObject> a) {
         return getTotalWeight(a) <= bagCapacity;
     }
 
-    private void processSolution(ArrayList<MyObject> a) {
+    private void processSolution(List<MyObject> a) {
         if (getTotalValue(a) > getTotalValue(this.betterSolution)) {
             betterSolution.clear();
             betterSolution.addAll(a);
         }
     }
 
-    public ArrayList<MyObject> constructCandidates(ArrayList<MyObject> a, ArrayList<MyObject> input) {
+    public ArrayList<MyObject> constructCandidates(List<MyObject> a, ArrayList<MyObject> input) {
         ArrayList<MyObject> list = new ArrayList<>();
         int start = 0;
         if (!a.isEmpty())
@@ -58,7 +59,7 @@ public class Solver {
         return list;
     }
 
-    public int getTotalWeight(ArrayList<MyObject> list) {
+    public int getTotalWeight(List<MyObject> list) {
         int weight = 0;
         for (MyObject o : list) {
             weight += o.getWeight();
@@ -66,7 +67,7 @@ public class Solver {
         return weight;
     }
 
-    public int getTotalValue(ArrayList<MyObject> list) {
+    public int getTotalValue(List<MyObject> list) {
         int value = 0;
         for (MyObject o : list) {
             value += o.getValue();

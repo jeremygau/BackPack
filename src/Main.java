@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.spi.AbstractResourceBundleProvider;
 
 public class Main {
@@ -10,8 +11,12 @@ public class Main {
 //        moyenne = moyenne / repetition;
 //        System.out.println(moyenne + " ms");
         String filename = "./files/sac1_2.txt";
+        System.out.println("ArrayList ======================");
         solveWithArray(filename);
-        solveWithStack(filename);
+//        System.out.println("Stack ======================");
+//        solveWithStack(filename);
+//        System.out.println("LinkedList ======================");
+//        solveWithLinked(filename);
     }
 
     public static void solveWithArray(String filename) {
@@ -19,7 +24,18 @@ public class Main {
         Solver solver = new Solver(filename);
 //            System.out.println(solver.getObjectArrayList());
         System.out.println(solver.solve());
-        System.out.println("bag capacity = " + solver.getBagCapacity());
+//        System.out.println("bag capacity = " + solver.getBagCapacity());
+        System.out.println("better solution weight = " + solver.getTotalWeight(solver.getBetterSolution()));
+        System.out.println("better solution value = " + solver.getTotalValue(solver.getBetterSolution()));
+        System.out.println("time = " + (System.currentTimeMillis() - before) + " ms");
+    }
+
+    public static void solveWithLinked(String filename) {
+        long before = System.currentTimeMillis();
+        SolverLinkedList solver = new SolverLinkedList(filename);
+//            System.out.println(solver.getObjectArrayList());
+        System.out.println(solver.solve());
+//        System.out.println("bag capacity = " + solver.getBagCapacity());
         System.out.println("better solution weight = " + solver.getTotalWeight(solver.getBetterSolution()));
         System.out.println("better solution value = " + solver.getTotalValue(solver.getBetterSolution()));
         System.out.println("time = " + (System.currentTimeMillis() - before) + " ms");
@@ -30,7 +46,7 @@ public class Main {
         SolverStack solverStack = new SolverStack(filename);
 //            System.out.println(solverStack.getObjectArrayList());
         System.out.println(solverStack.solve());
-        System.out.println("bag capacity = " + solverStack.getBagCapacity());
+//        System.out.println("bag capacity = " + solverStack.getBagCapacity());
         System.out.println("better solution weight = " + solverStack.getTotalWeight(solverStack.getBetterSolution()));
         System.out.println("better solution value = " + solverStack.getTotalValue(solverStack.getBetterSolution()));
         System.out.println("time = " + (System.currentTimeMillis() - before) + " ms");
