@@ -24,8 +24,8 @@ public class MyObject implements Comparable{
     public int compareTo(Object o) {
         MyObject object = (MyObject) o;
         double comparator = this.ratio() - object.ratio();
-        if (comparator < 0) return -1;
-        if (comparator > 0) return 1;
+        if (comparator > 0) return -1;
+        if (comparator < 0) return 1;
         return 0;
     }
 
