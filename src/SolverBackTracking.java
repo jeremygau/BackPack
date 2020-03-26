@@ -1,20 +1,10 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-public class SolverBackTracking {
-
-    private int bagCapacity;
-    private ArrayList<MyObject> objectArrayList;
-    private ArrayList<MyObject> betterSolution;
+public class SolverBackTracking extends Solver {
 
     public SolverBackTracking(String filename) {
-        this.betterSolution = new ArrayList<>();
-        this.objectArrayList = new ArrayList<>();
-        readFile(filename);
+        super(filename);
     }
 
     public ArrayList<MyObject> solve() {
@@ -32,7 +22,7 @@ public class SolverBackTracking {
             if (getTotalWeight(a) + candidate.getWeight() <= bagCapacity) {
                 a.add(a.size(), candidate);
                 backtrack(a);
-                a.remove(a.size()-1);
+                a.remove(a.size() - 1);
             }
         }
     }
@@ -57,48 +47,5 @@ public class SolverBackTracking {
             list.add(input.get(i));
         }
         return list;
-    }
-
-    public int getTotalWeight(List<MyObject> list) {
-        int weight = 0;
-        for (MyObject o : list) {
-            weight += o.getWeight();
-        }
-        return weight;
-    }
-
-    public int getTotalValue(List<MyObject> list) {
-        int value = 0;
-        for (MyObject o : list) {
-            value += o.getValue();
-        }
-        return value;
-    }
-
-    public void readFile(String filename) {
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(filename));
-            String line = bufferedReader.readLine();
-            this.bagCapacity = Integer.parseInt(line);
-            while ((line = bufferedReader.readLine()) != null) {
-                String[] values = line.split(" ");
-                objectArrayList.add(new MyObject(Integer.parseInt(values[0]), Integer.parseInt(values[1])));
-            }
-            Collections.sort(objectArrayList);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public int getBagCapacity() {
-        return bagCapacity;
-    }
-
-    public ArrayList<MyObject> getObjectArrayList() {
-        return objectArrayList;
-    }
-
-    public ArrayList<MyObject> getBetterSolution() {
-        return betterSolution;
     }
 }

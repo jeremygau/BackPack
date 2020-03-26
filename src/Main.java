@@ -1,7 +1,7 @@
 public class Main {
     public static void main(String[] args) {
-        String filename = "./files/sac3.txt";
-//        solveWithBackTrack(filename);
+        String filename = "./files/sac1.txt";
+        solveWithBackTrack(filename);
         solveWithDynamic(filename);
     }
 
@@ -20,8 +20,7 @@ public class Main {
         long before = System.currentTimeMillis();
         SolverDynamic solver = new SolverDynamic(filename);
 //        System.out.println(solver.getObjectArrayList());
-        solver.solve();
-        System.out.println(solver.getBetterSolution());
+        System.out.println(solver.solve());
 //        System.out.println("bag capacity = " + solver.getBagCapacity());
         System.out.println("better solution weight = " + solver.getTotalWeight(solver.getBetterSolution()));
         System.out.println("better solution value = " + solver.getTotalValue(solver.getBetterSolution()));
