@@ -1,4 +1,7 @@
+import javax.print.DocFlavor;
 import java.util.ArrayList;
+import java.util.concurrent.Callable;
+import java.util.function.Function;
 
 public class SolverDynamic extends Solver {
 
@@ -21,19 +24,18 @@ public class SolverDynamic extends Solver {
     }
 
     public int[] constructValueTable() {
-        return constructTable(false);
+        return constructTable(MyObject::getValue);
     }
 
     public int[] constructWeightTable() {
-        return constructTable(true);
+        return constructTable(MyObject::getWeight);
     }
 
-    public int[] constructTable(boolean b) {
+    public int[] constructTable(Function<MyObject, Integer> function) {
         int[] t = new int[objectArrayList.size()];
         for (int i = 0; i < objectArrayList.size(); i++) {
             MyObject o = objectArrayList.get(i);
-            if (b) t[i] = o.getWeight();
-            else t[i] = o.getValue();
+            t[i] = function.apply(o);
         }
         return t;
     }
